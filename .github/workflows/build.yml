@@ -7,12 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Install ARM Toolchain
         run: sudo apt-get update && sudo apt-get install -y gcc-arm-none-eabi
+
       - name: Compile C++ to kernel.img
         run: |
-          arm-none-eabi-gcc -O2 -mcpu=arm1176jzf-s -nostartfiles main.cpp -o main.elf
+          arm-none-eabi-g++ -O2 -mcpu=arm1176jzf-s -fno-rtti -fno-exceptions -nostartfiles main.cpp -o main.elf
           arm-none-eabi-objcopy -O binary main.elf kernel.img
+
       - name: Upload kernel.img
         uses: actions/upload-artifact@v3
         with:
