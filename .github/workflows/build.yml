@@ -13,11 +13,11 @@ jobs:
 
       - name: Compile C++ to kernel.img
         run: |
-          arm-none-eabi-g++ -O2 -mcpu=arm1176jzf-s -fno-rtti -fno-exceptions -nostartfiles main.cpp -o main.elf
+          arm-none-eabi-g++ -O2 -mcpu=arm1176jzf-s -fno-rtti -fno-exceptions -nostartfiles -e kernel_main main.cpp -o main.elf
           arm-none-eabi-objcopy -O binary main.elf kernel.img
 
       - name: Upload kernel.img
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: kernel-img
           path: kernel.img
